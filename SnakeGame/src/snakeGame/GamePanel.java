@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 import java.awt.Color;
 import javax.swing.JPanel;
 
@@ -17,9 +18,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private boolean running;
 	private Thread thread;
 	private BodyParts b;
+	private Apple apple;
+	private ArrayList<Apple> apples;
 	private ArrayList<BodyParts> snakes;
+	private Random r;
 	private int xCoor = 10, yCoor = 10, size = 5, ticks = 0;
 	private boolean up = false, down = false, right = true, left = false;
+	
 	
 	public GamePanel() {
 		
@@ -28,6 +33,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		addKeyListener(this);
 		snakes = new ArrayList<BodyParts>();
+		apples = new ArrayList<Apple>();
+		r = new Random();
 		start();
 		
 	}
@@ -74,6 +81,27 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     		
     		
     	}
+    	
+    	if (apples.size() == 0) {
+    	
+    		
+    		int xCoor = r.nextInt(49);
+       		int yCoor = r.nextInt(49);
+       		
+       		apple = new Apple(xCoor, yCoor, 10);
+       		apples.add(apple);
+    	}
+    	
+    	for (int i = 0; i < apples.size(); i++) {
+    		
+    		if (xCoor == apples.get(i).getxCoor() && yCoor == apples.get(i).getyCoor()) {
+    			size++;
+    			apples.remove(i);
+    			i++;
+    			
+    		}
+			
+		}
 	
     }
     
@@ -95,6 +123,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     	
     	for (int i = 0; i < snakes.size(); i++) {
     		snakes.get(i).draw(g);
+		}
+    	for (int i = 0; i < apples.size(); i++) {
+			apples.get(i).draw(g);
 		}
 	}
     
