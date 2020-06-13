@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private ArrayList<Apple> apples;
 	private ArrayList<BodyParts> snakes;
 	private Random r;
-	private int xCoor = 10, yCoor = 10, size = 5, ticks = 0;
+	private int xCoor = 10, yCoor = 10, size = 15, ticks = 0;
 	private boolean up = false, down = false, right = true, left = false;
 	
 	
@@ -102,6 +102,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
     		}
 			
 		}
+//    	collision on snake body part
+    	for (int i = 0; i < snakes.size(); i++) {
+		
+    		if (xCoor == snakes.get(i).getxCoor() && yCoor == snakes.get(i).getyCoor()) {
+    			if (i != snakes.size() - 1) {
+    				System.out.println("Game Over");
+    	    		stop();
+    			}
+    		}
+		}
+    	 
+//    	collision on border
+//    	if (xCoor < 0 || xCoor > 49 || yCoor < 0 || yCoor > 49) {
+//    		System.out.println("Game Over");
+//    		stop();
+//    	}	
 	
     }
     
@@ -169,17 +185,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			down = true;
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 	}
 
